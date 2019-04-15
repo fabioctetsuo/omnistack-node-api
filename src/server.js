@@ -2,12 +2,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const cors = require('cors');
 
 // Relative Imports
 const routes = require('./routes');
 
 // Instance of Express
 const app = express();
+
+// Allowing CORS for everyone
+app.use(cors());
 
 // Instance of SocketIO (websocket)
 const server = require('http').Server(app);
@@ -42,4 +46,4 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp')));
 app.use(routes);
 
-server.listen(3001);
+server.listen(process.env.PORT || 3001);
